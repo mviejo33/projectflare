@@ -14,18 +14,32 @@
         android:textColor="#fff"
         android:paddingLeft="5dp"
         />
-    <ListView android:id="@+id/paired_devices"
+
+    <ListView
+        android:id="@+id/paired_devices"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stackFromBottom="false"
+        android:layout_height="438dp"
         android:layout_weight="1"
-        />
+        android:stackFromBottom="false" />
 
     <TextView
         android:id="@+id/connecting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Skip" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/infoText"
