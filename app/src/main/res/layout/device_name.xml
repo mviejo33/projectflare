@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="18sp"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:textColor="@color/common_google_signin_btn_text_dark_default"
+    android:gravity="center"
+    android:background="@color/colorbackgroundList">
 
 </TextView>

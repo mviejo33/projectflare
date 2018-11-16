@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,21 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        calibration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {//login button click listener
 
-
-                //when internet is connected
-                if (Utill.verifyConection(MainMenuActivity.this)) {
-                    Intent intent = new Intent(MainMenuActivity.this, Calibration.class);
-                    //when there is no internet connection
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainMenuActivity.this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,11 +99,11 @@ public class MainMenuActivity extends AppCompatActivity {
 
     private void initialization() {
         contacts = (Button) findViewById(R.id.contacts);
-        calibration = (Button) findViewById(R.id.calibration);
         test = (Button) findViewById(R.id.test);
         log_out = (Button) findViewById(R.id.log_out);
         AssetManager am = getApplicationContext().getAssets();
-        Typeface custom_font = Typeface.createFromAsset(am, "fonts/PlayfairDisplay-BlackItalic.otf");
 
-    }}
+
+    }
+}
 

@@ -11,13 +11,13 @@
     <TextView
         android:id="@+id/verification_text"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginStart="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="50dp"
-        android:text="Your trusted peers need to be verified. Edit the email template below and hit send."
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="Please verify your emergency contacts by editing the email template below and pressing send."
         android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,16 +27,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
-        app:layout_constraintTop_toBottomOf="@+id/verification_text"
-        tools:layout_editor_absoluteX="17dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verification_text">
 
         <EditText
             android:id="@+id/ed_email_template"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="left"
             android:lines="10"
             android:maxLines="10"
-            android:text="Hi!\n\nYou're receiving this email to verify that you're a trusted peer on Flare. Please confirm my message. I will ask for your help in case of a danger.\n\nCheers,\nNoel"></EditText>
+            android:text="Hi from the Flare team,\n\nYou’re receiving this message to verify that you’re an emergency contact for John Smith. Please confirm my message by typing SAFE. In the future, any message you receive via Flare will be John calling for help. We hope it never happens.\n\nStay safe,\nFlare"></EditText>
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

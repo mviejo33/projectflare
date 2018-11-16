@@ -44,7 +44,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import fr.quentinklein.slt.LocationTracker;
 public class MainActivity extends AppCompatActivity {
     TextView tv_title;
     EditText ed_username, ed_password;
@@ -65,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},1);
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
 
 //        InsertDataToDataBase();//Inserting Local Data to Server
@@ -106,10 +108,12 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission(this,  Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE
-                    },
+            requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE},100);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},204);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},203);
+            requestPermissions(new String[]{Manifest.permission.SEND_SMS},100);
 
-                    100);
+
         }
     }
 
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         AssetManager am = getApplicationContext().getAssets();
         progressDialog = new ProgressDialog(MainActivity.this);
-        Typeface custom_font = Typeface.createFromAsset(am, "fonts/PlayfairDisplay-BlackItalic.otf");
+        Typeface custom_font = Typeface.createFromAsset(am, "fonts/Roboto-Regular.ttf");
         tv_title.setTypeface(custom_font);
     }
 
@@ -199,25 +203,28 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, Camera_request_code);
 
             }
-            else if (ContextCompat.checkSelfPermission(this,
+            if (ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                     ){
 
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, external_storage_request_code);
 
-            }else if (ContextCompat.checkSelfPermission(this,
+            }
+            if (ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     ){
 
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, Coarse_request_code);
 
 
-            }else if (ContextCompat.checkSelfPermission(this,
+            }
+            if (ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
 
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, fine_request_code);
 
-            }else if (ContextCompat.checkSelfPermission(this,
+            }
+            if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, read_request_code);
@@ -319,38 +326,6 @@ public class MainActivity extends AppCompatActivity {
             return response;
         }
 
-//        @Override
-//        protected void onPostExecute(JSONObject json) {
-//            super.onPostExecute(json);
-//            Log.i("Log", json + "");
-//            progressDialog.dismiss();
-//            try {
-//                //successful response from server
-//                //user is login successful
-//                if (json.getString("status").equals("success")) {
-//
-//                    String lng_idle_time=json.getString("idle_time");
-//                    Utill.addDataSP("idletime",""+lng_idle_time,MainActivity.this);
-//                    String user_id=json.getString("user_id");
-//                    Utill.addDataSP("user_idd",""+user_id,MainActivity.this);
-//
-//                    //start intent to QrCode Scan Activity
-//                    Intent intent = new Intent(MainActivity.this, InicioTurno.class);
-//                   //start Activity
-//                    startActivity(intent);
-//                }
-//                //successful response from server
-//                //user doesnot exist in dataBase
-//                else {
-//                    Toast.makeText(MainActivity.this, "Sorry Wrong Username Or Password", Toast.LENGTH_SHORT).show();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }catch (NullPointerException e){
-//                Log.d("qaz","Nulllllll");
-//            }
-//
-//        }
 
     }
 

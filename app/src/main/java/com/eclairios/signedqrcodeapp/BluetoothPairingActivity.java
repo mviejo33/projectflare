@@ -12,8 +12,12 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -39,7 +43,7 @@ public class BluetoothPairingActivity extends Activity {
     private BluetoothSocket btSocket = null;
     private StringBuilder recDataString = new StringBuilder();
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
-
+    private GpsTracker gpsTracker;
     private ConnectedThread mConnectedThread;
 
     // SPP UUID service - this should work for most devices
@@ -51,15 +55,29 @@ public class BluetoothPairingActivity extends Activity {
     protected void sendSMSMessage() {
         SmsManager smsManager = SmsManager.getDefault();
         ArrayList<String[]>  contacts = ((Constants) this.getApplication()).getContacts();
-//        Iterator it = ((Constants) this.getApplication()).contacts.entrySet().iterator();
+        //        ((Constants) this.getApplication()).getLocation();
+        String gMapsLink = "";
+        gpsTracker = new GpsTracker(BluetoothPairingActivity.this);
+        if(gpsTracker.canGetLocation()){
+//            String latitude = String.valueOf( Math.round(gpsTracker.getLatitude() * 100.0) / 100.0 );
+////            String longitude = String.valueOf( Math.round(gpsTracker.getLongitude() * 100.0) / 100.0 ) ;
+            String latitude = String.valueOf(gpsTracker.getLatitude());
+            String longitude = String.valueOf( gpsTracker.getLongitude()) ;
+            String zoom = "15";
+            gMapsLink =  "https://www.google.pl/maps/search/" + latitude + "," + longitude + "/@" + latitude + "," + longitude + "," + zoom + "z";
+        } else {
+            gpsTracker.showSettingsAlert();
+        }
         for (int i = 0; i < contacts.size(); i++) {
             String number = (String) contacts.get(i)[0];
             String mes = (String) contacts.get(i)[1];
-            Log.d("qqqqq", (String) number);
-            Log.d("qqqqq", (String) mes);
-
             smsManager.sendTextMessage(number, null, mes, null, null);
+            smsManager.sendTextMessage(number, null, gMapsLink, null, null);
         }
+
+
+
+
 //        while (it.hasNext()) {
 //            Map.Entry pair = (Map.Entry)it.next();
 //            String number = (String)pair.getKey();
@@ -75,7 +93,6 @@ public class BluetoothPairingActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_bluetooth_pairing);
 
         //Link the buttons and textViews to respective views
@@ -96,8 +113,10 @@ public class BluetoothPairingActivity extends Activity {
                     if (endOfLineIndex > 0) {                                           // make sure there data before ~
                         String dataInPrint = recDataString.substring(0, endOfLineIndex);    // extract string
                         Toast.makeText(getBaseContext(), dataInPrint, Toast.LENGTH_SHORT).show();
+
                         sendSMSMessage();
                         recDataString.delete(0, recDataString.length());                    //clear all string data
+
                         // strIncom =" ";
                         dataInPrint = " ";
                     }
@@ -118,14 +137,9 @@ public class BluetoothPairingActivity extends Activity {
 //                Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        btnOn.setOnClickListener(new OnClickListener() {
-//            public void onClick(View v) {
-//                mConnectedThread.write("1");    // Send "1" via Bluetooth
-////                Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
+
+
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 

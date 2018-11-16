@@ -26,7 +26,6 @@ public class DeviceListActivity extends Activity {
     // declare button for launching website and textview for connection status
     Button tlbutton;
     TextView textView1;
-    Button skipButton;
 
     // EXTRA string to send on to mainactivity
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -40,16 +39,8 @@ public class DeviceListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
-        initialization();
 
-        skipButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DeviceListActivity.this, AddContact.class);
-                startActivity(intent);
-            }
 
-            });
 
     }
 
@@ -80,12 +71,13 @@ public class DeviceListActivity extends Activity {
 
         // Add previosuly paired devices to the array
         if (pairedDevices.size() > 0) {
-            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);//make title viewable
             for (BluetoothDevice device : pairedDevices) {
                 mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         }
     }
+
+
 
     // Set up on-click listener for the list (nicked this - unsure)
     private OnItemClickListener mDeviceClickListener = new OnItemClickListener() {
@@ -119,7 +111,5 @@ public class DeviceListActivity extends Activity {
             }
         }
     }
-    private void initialization() {
-        skipButton = (Button) findViewById(R.id.skip_button);
-    }
+
 }
