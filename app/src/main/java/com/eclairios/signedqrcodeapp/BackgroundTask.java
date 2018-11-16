@@ -51,7 +51,8 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
         try {//the code below gives exception
 
             ///Getting url from class Constants
-            URL url = new URL(Constants.urlInsert);
+//            URL url = new URL(Constants.urlInsert);
+            URL url = new URL("url");
             //opening url connection
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             //enable sending data

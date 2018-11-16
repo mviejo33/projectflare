@@ -2,6 +2,9 @@ package com.eclairios.signedqrcodeapp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 import android.Manifest;
@@ -47,7 +50,26 @@ public class BluetoothPairingActivity extends Activity {
 
     protected void sendSMSMessage() {
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("9293122450", null, "sms message", null, null);
+        ArrayList<String[]>  contacts = ((Constants) this.getApplication()).getContacts();
+//        Iterator it = ((Constants) this.getApplication()).contacts.entrySet().iterator();
+        for (int i = 0; i < contacts.size(); i++) {
+            String number = (String) contacts.get(i)[0];
+            String mes = (String) contacts.get(i)[1];
+            Log.d("qqqqq", (String) number);
+            Log.d("qqqqq", (String) mes);
+
+            smsManager.sendTextMessage(number, null, mes, null, null);
+        }
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry)it.next();
+//            String number = (String)pair.getKey();
+//            Log.d("qqqqq", (String) number);
+//            String message = (String)pair.getValue();
+//            smsManager.sendTextMessage("001" + number, null, message, null, null);
+//
+//            it.remove(); // avoids a ConcurrentModificationException
+//        }
+//        smsManager.sendTextMessage("9293122450", null, "sms message", null, null);
     }
 
     @Override

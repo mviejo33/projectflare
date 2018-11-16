@@ -4,14 +4,18 @@ package com.eclairios.signedqrcodeapp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.arduinosensors.R;
+
+import java.util.Iterator;
 
 public class AddContact extends AppCompatActivity {
 
@@ -40,7 +44,9 @@ public class AddContact extends AppCompatActivity {
                     Toast.makeText(AddContact.this, "Please enter a phone number", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(AddContact.this, AddContact2.class);
+                Intent intent = new Intent(AddContact.this, AddContact.class);
+                ((Constants) getApplication()).setContact(phone,"");
+//                Log.d("qqq", Constants.contacts.get(phone));
                 startActivity(intent);
             }
         });
@@ -60,6 +66,8 @@ public class AddContact extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent(AddContact.this, VerificationScreen.class);
+                ((Constants) getApplication()).setContact(phone,"");
+
                 startActivity(intent);
             }
         });
