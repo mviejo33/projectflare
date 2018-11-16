@@ -21,6 +21,12 @@
         android:layout_weight="1"
         />
 
+    <Button
+        android:id="@+id/skip_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skip" />
+
     <TextView
         android:id="@+id/connecting"
         android:layout_width="wrap_content"

@@ -26,6 +26,7 @@ public class DeviceListActivity extends Activity {
     // declare button for launching website and textview for connection status
     Button tlbutton;
     TextView textView1;
+    Button skipButton;
 
     // EXTRA string to send on to mainactivity
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
@@ -38,6 +39,17 @@ public class DeviceListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
+
+        initialization();
+
+        skipButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DeviceListActivity.this, AddContact.class);
+                startActivity(intent);
+            }
+
+            });
 
     }
 
@@ -106,5 +118,8 @@ public class DeviceListActivity extends Activity {
 
             }
         }
+    }
+    private void initialization() {
+        skipButton = (Button) findViewById(R.id.skip_button);
     }
 }
